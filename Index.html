@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تراث للاستشارات الهندسية والمقاولات - صفحة واحدة</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #000033; /* كحلي غامق جداً */
+            background-size: cover;
+            background-position: center center;
+            background-attachment: fixed;
+            margin: 0;
+            padding: 0;
+            direction: rtl;
+            color: white; /* لون النص الافتراضي للصفحة: أبيض */
+            position: relative;
+        }
+        header {
+            background-color: rgba(30, 30, 30, 0.9);
+            color: white;
+            text-align: center;
+            padding: 20px;
+            position: relative;
+            z-index: 2;
+        }
+        header h1 {
+            color: white;
+            font-size: 2.5em;
+            margin-bottom: 5px;
+        }
+        header p {
+            color: white;
+            font-size: 1.2em;
+        }
+        nav {
+            background-color: rgba(40, 40, 40, 0.9);
+            padding: 10px;
+            text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        nav a {
+            color: white;
+            margin: 0 15px;
+            text-decoration: none;
+            font-size: 17px;
+            transition: color 0.3s ease, font-weight 0.3s ease;
+        }
+        nav a:hover {
+            color: #a0a0a0;
+        }
+        nav a.active {
+            color: #007BFF;
+            font-weight: bold;
+            border-bottom: 2px solid #007BFF;
+            padding-bottom: 5px;
+        }
+
+        /* تنسيقات الفيديو */
+        .video-player-container {
+            width: 100%;
+            max-width: none;
+            margin: 0 auto;
+            border-radius: 0;
+            overflow: hidden;
+            box-shadow: none;
+            background-color: transparent;
+            position: relative;
+            z-index: 1;
+        }
+        .video-player-container video {
+            width: 100%;
+            height: 33vh;
+            object-fit: contain;
+            display: block;
+            background-color: black;
+        }
+
+        /* الأقسام العامة */
+        section {
+            padding: 40px 20px;
+            background-color: rgba(255, 255, 255, 0.1); /* الخلفية الشفافة الافتراضية */
+            backdrop-filter: blur(5px);
+            margin: 20px auto;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+            max-width: 900px;
+            text-align: center;
+            color: white;
+            position: relative;
+            z-index: 1;
+        }
+        section h2 {
+            color: white;
+            margin-bottom: 25px;
+            font-size: 2em;
+        }
+        section p {
+            line-height: 1.8;
+            color: white;
+            margin-bottom: 15px;
+        }
+
+        /* تنسيقات قسم الخدمات */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+        .service-item {
+            background-color: rgba(255, 255, 255, 0.15);
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease, background-color 0.3s ease;
+            text-align: center;
+        }
+        .service-item:hover {
+            transform: translateY(-5px);
+            background-color: rgba(255, 255, 255, 0.25);
+        }
+        .service-item h3 {
+            color: white;
+            margin-top: 0;
+            margin-bottom: 10px;
+            font-size: 1.5em;
+        }
+        .service-item p {
+            font-size: 0.95em;
+            color: #ccc;
+        }
+
+        /* تنسيقات قسم أعمالنا (المعرض) */
+        .portfolio-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            justify-content: center;
+            margin-top: 30px;
+        }
+        .portfolio-item {
+            background-color: rgba(255, 255, 255, 0.15);
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            transition: transform 0.3s ease;
+            color: white;
+        }
+        .portfolio-item:hover {
+            transform: translateY(-5px);
+        }
+        .portfolio-item img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        /* تنسيقات قسم التواصل - مع إضافة خلفية الصورة */
+        section#contact { /* تحديد القسم بالـ ID */
+            background-image: url('images/background.jpg'); /* الصورة هنا */
+            background-size: cover; /* تغطي المساحة بالكامل */
+            background-position: center center; /* تتمركز الصورة */
+            background-repeat: no-repeat; /* عدم تكرار الصورة */
+            position: relative; /* لتمكين الطبقة الشفافة */
+        }
+        /* طبقة شفافة فوق صورة الخلفية لتحسين وضوح النص */
+        section#contact::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.4); /* طبقة سوداء شفافة (يمكنك تغيير نسبة الشفافية) */
+            backdrop-filter: blur(3px); /* تأثير ضبابية خفيف على الصورة نفسها */
+            border-radius: 10px; /* نفس نصف قطر الحواف للقسم */
+            z-index: -1; /* لجعلها تظهر خلف المحتوى ولكن فوق الصورة */
+        }
+        /* تأكد أن المحتوى يظهر فوق الطبقة الشفافة */
+        section#contact > *:not(::before) {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* تنسيقات حقول نموذج التواصل */
+        .contact-form label {
+            display: block;
+            text-align: right;
+            margin-bottom: 5px;
+            color: white;
+        }
+        .contact-form input,
+        .contact-form textarea {
+            width: calc(100% - 22px); /* لتأخذ العرض الكامل مع مراعاة البادنج */
+            padding: 10px;
+            margin-top: 5px;
+            margin-bottom: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 5px;
+            box-sizing: border-box; /* لضمان أن البادنج لا يزيد من العرض الكلي */
+            background-color: rgba(255, 255, 255, 0.1);
+            color: white;
+        }
+        /* لون Placeholder */
+        .contact-form input::placeholder,
+        .contact-form textarea::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+        .contact-form button {
+            background-color: #007BFF;
+            color: white;
+            padding: 10px 25px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+        .contact-form button:hover {
+            background-color: #0056b3;
+        }
+
+        /* الفوتر */
+        footer {
+            background-color: rgba(30, 30, 30, 0.9);
+            color: white;
+            text-align: center;
+            padding: 15px;
+            position: relative;
+            width: 100%;
+            margin-top: 30px;
+            z-index: 1;
+        }
+
+        /* استعلامات الوسائط (للاستجابة على الموبايل) */
+        @media (max-width: 768px) {
+            .video-player-container video {
+                height: 45vh;
+            }
+            header h1 {
+                font-size: 2em;
+            }
+            header p {
+                font-size: 1em;
+            }
+            nav a {
+                font-size: 15px;
+                margin: 0 10px;
+            }
+            section {
+                margin: 15px auto;
+                padding: 15px;
+            }
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .video-player-container video {
+                height: 50vh;
+            }
+            header h1 {
+                font-size: 1.8em;
+            }
+            header p {
+                font-size: 0.9em;
+            }
+            nav a {
+                font-size: 14px;
+                margin: 0 8px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="video-player-container" id="home">
+        <video controls autoplay loop muted>
+            <source src="videos/videos.mp4" type="video/mp4">
+            متصفحك لا يدعم وسم الفيديو.
+        </video>
+    </div>
+
+    <header>
+        <h1>Turath Engineering Consultations & Contracting</h1>
+        <p>Building Visions, Creating Realities</p>
+    </header>
+
+    <nav>
+        <a href="#home">الرئيسية</a>
+        <a href="#about">نبذة عنا</a>
+        <a href="#services">الخدمات</a>
+        <a href="#portfolio">أعمالنا</a>
+        <a href="#contact">تواصل معنا</a>
+    </nav>
+
+    <section id="about">
+        <h2>مرحباً بكم في تراث للاستشارات الهندسية والمقاولات</h2>
+        <p>نحن في شركة "تراث" نقدم خدمات استشارية هندسية متميزة في مجالات البناء والتشييد، مع خبرة طويلة في السوق وسمعة طيبة في تقديم أعلى معايير الجودة.</p>
+        <p>هدفنا هو تقديم حلول مبتكرة وفعالة للمشاريع الهندسية التي تسهم في تحسين بيئة العمل والبنية التحتية.</p>
+        <p>فريقنا يضم نخبة من المهندسين والاستشاريين ذوي الكفاءة العالية، ملتزمين بتحقيق رضا العميل وتقديم أفضل النتائج في كل مشروع.</p>
+    </section>
+
+    <section id="services">
+        <h2>خدماتنا</h2>
+        <p>نقدم مجموعة واسعة من الخدمات الهندسية والمقاولات لتلبية احتياجات مشاريعكم:</p>
+        <div class="services-grid">
+            <div class="service-item">
+                <h3>الاستشارات الهندسية</h3>
+                <p>تقديم دراسات الجدوى، التصميمات الأولية والتفصيلية، وإدارة المشاريع الهندسية.</p>
+            </div>
+            <div class="service-item">
+                <h3>تصميم معماري</h3>
+                <p>تصميم المباني السكنية، التجارية، والإدارية بأسلوب مبتكر وعصري يلبي طموحاتكم.</p>
+            </div>
+            <div class="service-item">
+                <h3>المقاولات العامة</h3>
+                <p>تنفيذ جميع أعمال البناء والتشييد، من الأساسات وحتى التشطيبات النهائية بجودة عالية.</p>
+            </div>
+            <div class="service-item">
+                <h3>إدارة المشاريع</h3>
+                <p>إدارة شاملة للمشاريع لضمان التسليم في الوقت المحدد وبالميزانية المحددة والمعايير المطلوبة.</p>
+            </div>
+            <div class="service-item">
+                <h3>التصميم الداخلي</h3>
+                <p>تحويل المساحات الداخلية إلى بيئات عملية وجمالية تعكس الذوق والرقي.</p>
+            </div>
+            <div class="service-item">
+                <h3>البنية التحتية</h3>
+                <p>تنفيذ مشاريع البنية التحتية مثل الطرق، شبكات المياه والصرف الصحي، والكهرباء.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="portfolio">
+        <h2>أعمالنا</h2>
+        <p>نحن فخورون بمشاريعنا المنجزة التي تعكس خبرتنا والتزامنا بالجودة والابتكار.</p>
+        <div class="portfolio-gallery">
+            <div class="portfolio-item">
+                <img src="images/project_01.jpg" alt="مشروع سكني حديث 1">
+            </div>
+            <div class="portfolio-item">
+                <img src="images/project_02.jpg" alt="تصميم مكتب إداري 2">
+            </div>
+            <div class="portfolio-item">
+                <img src="images/project_03.jpg" alt="مشروع بنية تحتية 3">
+            </div>
+            <div class="portfolio-item">
+                <img src="images/project_04.jpg" alt="تصميم واجهة مبنى 4">
+            </div>
+            <div class="portfolio-item">
+                <img src="images/project_05.jpg" alt="مشروع مدرسة 5">
+            </div>
+            <div class="portfolio-item">
+                <img src="images/project_06.jpg" alt="تجديد مطعم 6">
+            </div>
+            <div class="portfolio-item">
+                <img src="images/project_07.jpg" alt="تصميم حديقة 7">
+            </div>
+            <div class="portfolio-item">
+                <img src="images/project_08.jpg" alt="مشروع مستشفى 8">
+            </div>
+            <div class="portfolio-item">
+                <img src="images/project_09.jpg" alt="ورشة صناعية 9">
+            </div>
+            <div class="portfolio-item">
+                <img src="images/project_10.jpg" alt="تجديد فندق 10">
+            </div>
+            <div class="portfolio-item">
+                <img src="images/project_11.jpg" alt="مشروع جسر 11">
+            </div>
+            <div class="portfolio-item">
+                <img src="images/project_12.jpg" alt="تصميم محل تجاري 12">
+            </div>
+            <div class="portfolio-item">
+                <img src="images/project_13.jpg" alt="مشروع مجمع سكني 13">
+            </div>
+            <div class="portfolio-item">
+                <img src="images/project_14.jpg" alt="تصميم مقهى 14">
+            </div>
+            <div class="portfolio-item">
+                <img src="images/project_15.jpg" alt="تطوير شبكة طرق 15">
+            </div>
+            <div class="portfolio-item">
+                <img src="images/project_16.jpg" alt="تصميم صالون تجميل 16">
+            </div>
+            <div class="portfolio-item">
+                <img src="images/project_17.jpg" alt="مشروع مركز رياضي 17">
+            </div>
+            <div class="portfolio-item">
+                <img src="images/project_18.jpg" alt="تصميم غرفة نوم 18">
+            </div>
+            <div class="portfolio-item">
+                <img src="images/project_19.jpg" alt="مشروع محطة وقود 19">
+            </div>
+            <div class="portfolio-item">
+                <img src="images/project_20.jpg" alt="تصميم مسرح منزلي 20">
+            </div>
+            <div class="portfolio-item">
+                <img src="images/project_21.jpg" alt="مشروع جامعة 21">
+            </div>
+            <div class="portfolio-item">
+                <img src="images/project_22.jpg" alt="تصميم حمام سباحة 22">
+            </div>
+            <div class="portfolio-item">
+                <img src="images/project_23.jpg" alt="مشروع جسر للمركبات 23">
+            </div>
+            <div class="portfolio-item">
+                <img src="images/project_24.jpg" alt="تصميم شقة عصرية 24">
+            </div>
+            <div class="portfolio-item">
+                <img src="images/project_25.jpg" alt="مشروع مركز ثقافي 25">
+            </div>
+            <div class="portfolio-item">
+                <img src="images/project_26.jpg" alt="تصميم متجر ملابس 26">
+            </div>
+            <div class="portfolio-item">
+                <img src="images/project_27.jpg" alt="مشروع فندق جديد 27">
+            </div>
+            <div class="portfolio-item">
+                <img src="images/project_28.jpg" alt="تصميم مطبخ حديث 28">
+            </div>
+            <div class="portfolio-item">
+                <img src="images/project_29.jpg" alt="مشروع مصنع 29">
+            </div>
+            <div class="portfolio-item">
+                <img src="images/project_30.jpg" alt="تصميم صيدلية 30">
+            </div>
+            <div class="portfolio-item">
+                <img src="images/project_31.jpg" alt="مشروع مركز تجاري 31">
+            </div>
+            <div class="portfolio-item">
+                <img src="images/project_32.jpg" alt="تصميم عيادة أسنان 32">
+            </div>
+            <div class="portfolio-item">
+                <img src="images/project_33.jpg" alt="مشروع تطوير كورنيش 33">
+            </div>
+            <div class="portfolio-item">
+                <img src="images/project_34.jpg" alt="تصميم استوديو فني 34">
+            </div>
+            <div class="portfolio-item">
+                <img src="images/project_35.jpg" alt="مشروع قرية سياحية 35">
+            </div>
+            <div class="portfolio-item">
+                <img src="images/project_36.jpg" alt="تصميم سبا 36">
+            </div>
+            <div class="portfolio-item">
+                <img src="images/project_37.jpg" alt="مشروع موقف سيارات متعدد الطوابق 37">
+            </div>
+            <div class="portfolio-item">
+                <img src="images/project_38.jpg" alt="تصميم مكتب محاماة 38">
+            </div>
+            <div class="portfolio-item">
+                <img src="images/project_39.jpg" alt="مشروع منطقة صناعية 39">
+            </div>
+            <div class="portfolio-item">
+                <img src="images/project_40.jpg" alt="تصميم صالة استقبال 40">
+            </div>
+            <div class="portfolio-item">
+                <img src="images/project_41.jpg" alt="مشروع مركز بيانات 41">
+            </div>
+            <div class="portfolio-item">
+                <img src="images/project_42.jpg" alt="تصميم كافيه 42">
+            </div>
+            <div class="portfolio-item">
+                <img src="images/project_43.jpg" alt="مشروع محطة معالجة مياه 43">
+            </div>
+            <div class="portfolio-item">
+                <img src="images/project_44.jpg" alt="تصميم معرض فني 44">
+            </div>
+            <div class="portfolio-item">
+                <img src="images/project_45.jpg" alt="مشروع متحف 45">
+            </div>
+            <div class="portfolio-item">
+                <img src="images/project_46.jpg" alt="تصميم ملعب كرة قدم 46">
+            </div>
+            <div class="portfolio-item">
+                <img src="images/project_47.jpg" alt="مشروع مركز تسوق 47">
+            </div>
+            <div class="portfolio-item">
+                <img src="images/project_48.jpg" alt="تصميم شاليه 48">
+            </div>
+            <div class="portfolio-item">
+                <img src="images/project_49.jpg" alt="مشروع مركز مؤتمرات 49">
+            </div>
+            <div class="portfolio-item">
+                <img src="images/project_50.jpg" alt="تصميم استراحة 50">
+            </div>
+            <div class="portfolio-item">
+                <img src="images/project_51.jpg" alt="مشروع مبنى إداري 51">
+            </div>
+            <div class="portfolio-item">
+                <img src="images/project_52.jpg" alt="تصميم عيادة أطفال 52">
+            </div>
+            <div class="portfolio-item">
+                <img src="images/project_53.jpg" alt="مشروع محطة طاقة شمسية 53">
+            </div>
+            <div class="portfolio-item">
+                <img src="images/project_54.jpg" alt="تصميم مكتبة 54">
+            </div>
+            <div class="portfolio-item">
+                <img src="images/project_55.jpg" alt="مشروع مركز بحثي 55">
+            </div>
+            <div class="portfolio-item">
+                <img src="images/project_56.jpg" alt="تصميم مخبز 56">
+            </div>
+            <div class="portfolio-item">
+                <img src="images/project_57.jpg" alt="مشروع سد مائي 57">
+            </div>
+            <div class="portfolio-item">
+                <img src="images/project_58.jpg" alt="تصميم استوديو تسجيل 58">
+            </div>
+            <div class="portfolio-item">
+                <img src="images/project_59.jpg" alt="مشروع بناء مسرح 59">
+            </div>
+            <div class="portfolio-item">
+                <img src="images/project_60.jpg" alt="تصميم كافيتريا جامعة 60">
+            </div>
+        </div>
+    </section>
+
+    <section id="contact">
+        <h2>تواصل معنا</h2>
+        <p>لا تتردد في التواصل معنا لأي استفسارات أو طلبات خدمة. فريقنا مستعد لخدمتكم.</p>
+        <div class="contact-form">
+            <form action="https://formsubmit.co/turathcontraction@gmail.com" method="POST">
+                <label for="name">الاسم:</label>
+                <input type="text" id="name" name="الاسم" required>
+
+                <label for="email">البريد الإلكتروني:</label>
+                <input type="email" id="email" name="البريد الإلكتروني" required>
+
+                <label for="message">الرسالة:</label>
+                <textarea id="message" name="الرسالة" rows="5" required></textarea>
+
+                <input type="hidden" name="_subject" value="رسالة جديدة من نموذج تواصل موقع تراث">
+                <input type="hidden" name="_next" value="https://elktroon.github.io/thankyou.html"> <input type="hidden" name="_template" value="box"> <button type="submit">إرسال</button>
+            </form>
+        </div>
+    </section>
+
+    <footer>
+        <p>جميع الحقوق محفوظة لشركة تراث للاستشارات الهندسية والمقاولات © 2025</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const sections = document.querySelectorAll('section, .video-player-container');
+            const navLinks = document.querySelectorAll('nav a');
+            const nav = document.querySelector('nav');
+            const navHeight = nav.offsetHeight;
+
+            window.addEventListener('scroll', () => {
+                let current = '';
+                const scrollY = window.scrollY;
+
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop - navHeight - 10;
+                    const sectionHeight = section.clientHeight;
+
+                    if (scrollY >= sectionTop && scrollY < sectionTop + sectionHeight) {
+                        current = section.getAttribute('id');
+                    }
+                });
+
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href').substring(1) === current) {
+                        link.classList.add('active');
+                    }
+                });
+            });
+
+            // جعل النقر على الروابط يتمرير بسلاسة
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href').substring(1);
+                    const targetSection = document.getElementById(targetId);
+
+                    if (targetSection) {
+                        window.scrollTo({
+                            top: targetSection.offsetTop - navHeight,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+
+            // تعيين الرابط النشط عند تحميل الصفحة لأول مرة
+            window.dispatchEvent(new Event('scroll'));
+        });
+    </script>
+
+</body>
+</html> 
